@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import List
 
-class CarRecomendationRequest(BaseModel):
+class CarRecommendationRequest(BaseModel):
     budget: int = Field(gt = 0, description="The max purchasing budget")
     location: str = Field(min_length= 2, description= "The location of the user")
     annual_km : str = Field(gt = 0, desciption= "The anual km the person expects to drive")
