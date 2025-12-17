@@ -39,7 +39,7 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
     raw_weights = request.weights or default_weights
     weights = normalize_weights(raw_weights)
 
-    catalog, using_mock = load_cars_with_meta()
+    catalog, using_mock, last_updated = load_cars_with_meta()
     budget_cutoff = request.budget * 1.2
     results = []
     for car in catalog:
@@ -109,6 +109,7 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
     return {
         "weights_used": weights,
         "using_mock_data": using_mock,
+        "catalog_last_updated": last_updated,
         "results": results[:5],
     }
 
@@ -120,16 +121,26 @@ def nhtsa_issues(make: str, model: str, model_year: int) -> dict:
 
 @app.get("/")
 def health() -> dict:
-    catalog, using_mock = load_cars_with_meta()
-    return {"status": "ok", "catalog_size": len(catalog), "using_mock_data": using_mock}
+    catalog, using_mock, last_updated = load_cars_with_meta()
+    return {
+        "status": "ok",
+        "catalog_size": len(catalog),
+        "using_mock_data": using_mock,
+        "catalog_last_updated": last_updated,
+    }
 
 
 @app.get("/models")
 def list_models() -> dict:
-    catalog, using_mock = load_cars_with_meta()
+    catalog, using_mock, last_updated = load_cars_with_meta()
     items = [
         {"make": c.get("make"), "model": c.get("model"), "year": c.get("year")}
         for c in catalog
     ]
     unique = {f"{i['make']}_{i['model']}_{i['year']}": i for i in items if i["make"] and i["model"] and i["year"]}
-    return {"count": len(unique), "using_mock_data": using_mock, "models": list(unique.values())}
+    return {
+        "count": len(unique),
+        "using_mock_data": using_mock,
+        "catalog_last_updated": last_updated,
+        "models": list(unique.values()),
+    }

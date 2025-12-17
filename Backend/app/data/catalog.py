@@ -1,6 +1,7 @@
 from pathlib import Path
 import json
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
+from datetime import datetime
 
 # Fallback sample data so the app works even without a cached catalog
 MOCK_CARS: List[Dict[str, Any]] = [
@@ -70,28 +71,32 @@ DATA_DIR = Path(__file__).resolve().parent
 CACHE_FILE = DATA_DIR / "cache" / "vehicles.json"
 
 
-def _read_cache() -> Tuple[List[Dict[str, Any]], bool]:
+def _read_cache() -> Tuple[List[Dict[str, Any]], bool, Optional[str]]:
+    """
+    Return data, using_mock flag, and last_updated timestamp (ISO) if cache exists.
+    """
     if CACHE_FILE.exists():
         try:
             with CACHE_FILE.open("r", encoding="utf-8") as f:
                 data = json.load(f)
             if isinstance(data, list) and data:
-                return data, False
+                ts = datetime.fromtimestamp(CACHE_FILE.stat().st_mtime).isoformat()
+                return data, False, ts
         except (OSError, json.JSONDecodeError):
             pass
-    return MOCK_CARS, True
+    return MOCK_CARS, True, None
 
 
 def load_cars() -> List[Dict[str, Any]]:
     """
     Load cars from the cached catalog file if present; otherwise fall back to MOCK_CARS.
     """
-    data, _ = _read_cache()
+    data, _, _ = _read_cache()
     return data
 
 
-def load_cars_with_meta() -> Tuple[List[Dict[str, Any]], bool]:
+def load_cars_with_meta() -> Tuple[List[Dict[str, Any]], bool, Optional[str]]:
     """
-    Return cars and a flag indicating if mock data was used.
+    Return cars, a flag indicating if mock data was used, and last_updated timestamp.
     """
     return _read_cache()
