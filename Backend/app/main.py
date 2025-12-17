@@ -1,4 +1,4 @@
-﻿from fastapi import FastAPI
+from fastapi import FastAPI
 from app.models import CarRecommendationRequest
 from app.services.nhtsa_issues import get_complaints_and_recalls
 from app.recommender import (
@@ -10,9 +10,10 @@ from app.recommender import (
     ownership_cost_score,
     reliability_score,
 )
-from app.data.catalog import MOCK_CARS
+from app.data.catalog import load_cars
 
 app = FastAPI()
+CATALOG = load_cars()
 
 
 @app.post("/recommend")
@@ -30,7 +31,7 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
     weights = normalize_weights(raw_weights)
 
     results = []
-    for car in MOCK_CARS:
+    for car in CATALOG:
         w_winter = weights.get("winter_driving", 0.0)
         w_fuel = weights.get("fuel_efficiency", 0.0)
         w_price = weights.get("price_fit", 0.0)
@@ -45,27 +46,36 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
         own_points = ownership_cost_score(car.get("annual_cost", 0.0), w_own)
         rely_points = reliability_score(car.get("reliability_score", 0.0), w_rely)
 
-        total_score = winter_points + fuel_points + price_points + accel_points + own_points + rely_points
+        total_score = (
+            winter_points
+            + fuel_points
+            + price_points
+            + accel_points
+            + own_points
+            + rely_points
+        )
 
-        results.append({
-            "id": car["id"],
-            "make": car["make"],
-            "model": car["model"],
-            "year": car["year"],
-            "drivetrain": car["drivetrain"],
-            "price": car["price"],
-            "mpg": car.get("mpg"),
-            "zero_to_sixty": car.get("zero_to_sixty"),
-            "annual_cost": car.get("annual_cost"),
-            "reliability_score": car.get("reliability_score"),
-            "winter_points": round(winter_points, 4),
-            "fuel_points": round(fuel_points, 4),
-            "price_points": round(price_points, 4),
-            "acceleration_points": round(accel_points, 4),
-            "ownership_cost_points": round(own_points, 4),
-            "reliability_points": round(rely_points, 4),
-            "total_score": round(total_score, 4),
-        })
+        results.append(
+            {
+                "id": car["id"],
+                "make": car["make"],
+                "model": car["model"],
+                "year": car["year"],
+                "drivetrain": car["drivetrain"],
+                "price": car["price"],
+                "mpg": car.get("mpg"),
+                "zero_to_sixty": car.get("zero_to_sixty"),
+                "annual_cost": car.get("annual_cost"),
+                "reliability_score": car.get("reliability_score"),
+                "winter_points": round(winter_points, 4),
+                "fuel_points": round(fuel_points, 4),
+                "price_points": round(price_points, 4),
+                "acceleration_points": round(accel_points, 4),
+                "ownership_cost_points": round(own_points, 4),
+                "reliability_points": round(rely_points, 4),
+                "total_score": round(total_score, 4),
+            }
+        )
 
     results.sort(key=lambda x: x["total_score"], reverse=True)
     return {
