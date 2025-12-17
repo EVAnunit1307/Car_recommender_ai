@@ -1,17 +1,21 @@
 """
 Pull a small catalog of cars from public APIs and cache to app/data/cache/vehicles.json.
-This is designed to be simple and safe to run; adjust the make/year lists as needed.
+Designed to be simple and safe to run; adjust the make/year lists as needed.
 """
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 import json
+import sys
+
+# Ensure imports work when running as a script (python scripts/sync_catalog.py)
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.append(str(ROOT))
 
 from app.services.carquery import get_trims
 from app.services.epa import get_vehicle_options, get_vehicle_mpg
 from app.services.nhtsa_issues import get_complaints_and_recalls
 
-ROOT = Path(__file__).resolve().parents[1]
 CACHE_FILE = ROOT / "app" / "data" / "cache" / "vehicles.json"
 CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
 

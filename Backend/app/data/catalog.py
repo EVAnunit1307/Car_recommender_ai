@@ -57,7 +57,7 @@ def load_cars() -> List[Dict[str, Any]]:
         try:
             with CACHE_FILE.open("r", encoding="utf-8") as f:
                 data = json.load(f)
-            if isinstance(data, list):
+            if isinstance(data, list) and data:
                 return data
         except (OSError, json.JSONDecodeError):
             pass

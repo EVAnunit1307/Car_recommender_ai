@@ -1,0 +1,1 @@
+{"budget":20000,"location":"NY","annual_km":12000,"passengers":4,"priorities":["fuel","winter"],"weights":{"winter_driving":0.2,"fuel_efficiency":0.2,"price_fit":0.2,"ownership_cost":0.2,"acceleration":0.1,"reliability":0.1}}

@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.models import CarRecommendationRequest
 from app.services.nhtsa_issues import get_complaints_and_recalls
 from app.recommender import (
@@ -13,7 +14,15 @@ from app.recommender import (
 from app.data.catalog import load_cars
 
 app = FastAPI()
-CATALOG = load_cars()
+
+# Allow local frontend/dev tools
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/recommend")
@@ -30,8 +39,9 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
     raw_weights = request.weights or default_weights
     weights = normalize_weights(raw_weights)
 
+    catalog = load_cars()
     results = []
-    for car in CATALOG:
+    for car in catalog:
         w_winter = weights.get("winter_driving", 0.0)
         w_fuel = weights.get("fuel_efficiency", 0.0)
         w_price = weights.get("price_fit", 0.0)
@@ -87,3 +97,8 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
 @app.get("/nhtsa/issues")
 def nhtsa_issues(make: str, model: str, model_year: int) -> dict:
     return get_complaints_and_recalls(model_year, make, model)
+
+
+@app.get("/")
+def health() -> dict:
+    return {"status": "ok", "catalog_size": len(load_cars())}
