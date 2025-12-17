@@ -29,20 +29,35 @@ def winter_score(drivetrain: str, weight: float) -> float:
     return winter_feature(drivetrain) * weight
 
 
-# Fuel efficiency (ICE/Hybrid MPG for now)
+# Fuel efficiency (using L/100km; converts from MPG if needed). Lower is better.
 
-def fuel_feature(mpg: Optional[float], min_mpg: float = 20.0, max_mpg: float = 40.0) -> float:
-    if mpg is None:
+def mpg_to_l_per_100km(mpg: Optional[float]) -> Optional[float]:
+    if mpg is None or mpg <= 0:
+        return None
+    return 235.214583 / mpg
+
+
+def fuel_feature(l_per_100km: Optional[float], best: float = 4.0, worst: float = 12.0) -> float:
+    if l_per_100km is None:
         return 0.0
-    if mpg <= min_mpg:
-        return 0.0
-    if mpg >= max_mpg:
+    if l_per_100km <= best:
         return 1.0
-    return (mpg - min_mpg) / (max_mpg - min_mpg)
+    if l_per_100km >= worst:
+        return 0.0
+    return 1.0 - ((l_per_100km - best) / (worst - best))
 
 
-def fuel_score(mpg: Optional[float], weight: float) -> float:
-    return fuel_feature(mpg) * weight
+def fuel_score(
+    l_per_100km: Optional[float],
+    mpg: Optional[float],
+    fuel_type: Optional[str],
+    weight: float,
+) -> float:
+    ftype = (fuel_type or "").upper()
+    if ftype == "EV":
+        return 0.0  # skip fuel efficiency for EVs; handled via ownership cost
+    effective_l = l_per_100km if l_per_100km is not None else mpg_to_l_per_100km(mpg)
+    return fuel_feature(effective_l) * weight
 
 
 # Price fit vs budget

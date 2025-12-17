@@ -8,6 +8,10 @@ class CarRecommendationRequest(BaseModel):
     location: str = Field(min_length=2, description="User location")
     annual_km: int = Field(gt=0, description="Expected annual distance (km)")
     passengers: int = Field(ge=1, description="Number of passengers")
+    fuel_type: Optional[str] = Field(
+        default=None,
+        description="Optional fuel type filter (e.g., ICE, Hybrid, EV)"
+    )
     priorities: List[str] = Field(description="User priorities for recommendation")
     weights: Optional[Dict[str, float]] = Field(
         default=None,
