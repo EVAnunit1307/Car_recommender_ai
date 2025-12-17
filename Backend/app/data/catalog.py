@@ -1,4 +1,9 @@
-﻿MOCK_CARS = [
+from pathlib import Path
+import json
+from typing import List, Dict, Any
+
+# Fallback sample data so the app works even without a cached catalog
+MOCK_CARS: List[Dict[str, Any]] = [
     {
         "id": "civic_2018",
         "make": "Honda",
@@ -39,3 +44,21 @@
         "reliability_score": 0.7,
     },
 ]
+
+DATA_DIR = Path(__file__).resolve().parent
+CACHE_FILE = DATA_DIR / "cache" / "vehicles.json"
+
+
+def load_cars() -> List[Dict[str, Any]]:
+    """
+    Load cars from the cached catalog file if present; otherwise fall back to MOCK_CARS.
+    """
+    if CACHE_FILE.exists():
+        try:
+            with CACHE_FILE.open("r", encoding="utf-8") as f:
+                data = json.load(f)
+            if isinstance(data, list):
+                return data
+        except (OSError, json.JSONDecodeError):
+            pass
+    return MOCK_CARS

@@ -1,6 +1,4 @@
 ﻿from typing import Dict
-
-
 def clamp(value: float, lo: float = 0.0, hi: float = 1.0) -> float:
     return max(lo, min(hi, value))
 
@@ -60,7 +58,7 @@ def price_fit_score(price: float, budget: float, weight: float) -> float:
 
 # Acceleration (0-60)
 
-def acceleration_feature(zero_to_sixty: float, best: float = 4.0, worst: float = 10.0) -> float:
+def acceleration_feature(zero_to_sixty: float, best: float = 3.0, worst: float = 10.0) -> float:
     if zero_to_sixty <= best:
         return 1.0
     if zero_to_sixty >= worst:

@@ -12,3 +12,6 @@ venv/
 
 # Editors
 .vscode/
+
+# Data caches
+backend/app/data/cache/
