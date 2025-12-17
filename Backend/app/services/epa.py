@@ -3,13 +3,12 @@ from typing import List, Dict, Optional
 
 import requests
 
-BASE_URL = "https://api.fueleconomy.gov/ws/rest"
-TIMEOUT = 10
+fuel_economy_link = "https://api.fueleconomy.gov/ws/rest"
 
 
 def _fetch_xml(path: str, params: Dict) -> Optional[ET.Element]:
     try:
-        resp = requests.get(f"{BASE_URL}/{path}", params=params, timeout=TIMEOUT)
+        resp = requests.get(f"{fuel_economy_link}/{path}", params=params, timeout=5)
         resp.raise_for_status()
         return ET.fromstring(resp.text)
     except (requests.RequestException, ET.ParseError):
