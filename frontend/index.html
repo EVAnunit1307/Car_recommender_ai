@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Car Recommender</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="page">
+    <section class="panel">
+      <h1>Car Recommender</h1>
+      <form id="recommend-form">
+        <div class="field">
+          <label>Budget (USD)</label>
+          <input type="number" name="budget" value="20000" required />
+        </div>
+        <div class="field">
+          <label>Location</label>
+          <input type="text" name="location" value="NY" required />
+        </div>
+        <div class="field">
+          <label>Annual KM</label>
+          <input type="number" name="annual_km" value="12000" required />
+        </div>
+        <div class="field">
+          <label>Passengers</label>
+          <input type="number" name="passengers" value="4" min="1" required />
+        </div>
+        <div class="field">
+          <label>Fuel Type (optional)</label>
+          <select name="fuel_type">
+            <option value="">Any</option>
+            <option value="ICE">ICE</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="EV">EV</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Weight Preset</label>
+          <select id="preset">
+            <option value="balanced">Balanced</option>
+            <option value="budget">Budget saver</option>
+            <option value="winter">Winter commuter</option>
+            <option value="performance">Performance</option>
+          </select>
+        </div>
+        <button type="submit">Get recommendations</button>
+        <p id="status" class="status"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <h2>Results</h2>
+      <div id="results"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
