@@ -8,17 +8,13 @@ app = FastAPI()
 
 @app.post("/recommend")
 def recommend_car(request: CarRecommendationRequest) -> dict:
-    w_fuel = 0.3 
-    w_winter = 0.4
+    w_winter = request.weights.get("winter_driving", 0.4) if request.weights else 0.4
+    w_fuel = request.weights.get("fuel_efficiency", 0.4) if request.weights else 0.4
 
-    if request.weights and "fuel_efficiency" in request.weights:
-        w_fuel = float(request.weights["fuel_efficiency"])
-    if request.weights and "winter_driving" in request.weights:
-        w_winter = float(request.weights["winter_driving"])
-    fuel_points = fuel_score(car["mpg"], w_fuel)
     results = []
     for car in MOCK_CARS:
         winter_points = winter_score(car["drivetrain"], w_winter) #computes points for winter by lookign up car and computing with weight 
+        fuel_points = fuel_score(car["mpg"], w_fuel)
 
         results.append({
             "id": car["id"],
@@ -27,6 +23,7 @@ def recommend_car(request: CarRecommendationRequest) -> dict:
             "year": car["year"],
             "drivetrain": car["drivetrain"],
             "winter_points": round(winter_points, 4),
+            "fuel_points": round(fuel_points, 4),
         })
     return {"weights_used": {"winter_driving": w_winter}, "results": results}
 

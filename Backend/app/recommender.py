@@ -1,3 +1,12 @@
+from typing import Dict
+
+def normalize_weights(weights: Dict[str, float]) -> Dict[str,float]: #(weights: Dict[str, float] this is a type hint you will pass in wights ) -> Dict[str,float]:
+    total = sum(max(v, 0.0) for v in weights.values())
+    if total == 0:
+        return {k: 1.0/len(weights) for k in weights} #len(weights) = how many catagories ther eare, ex. stocks, bonds, cash 
+    return {k: max(v, 0.0) / total for k, v in weights.items()}
+
+
 def winter_feature(drivetrain: str) -> float: #score metric drivtrain 
     d = drivetrain.upper()
     if d == "AWD":
@@ -26,3 +35,4 @@ def fuel_feature(mpg: float, min_mpg: float = 20.0, max_mpg: float = 40.0) -> fl
 
 def fuel_score(mpg: float, w_fuel: float) -> float:
     return fuel_feature(mpg) * w_fuel
+
