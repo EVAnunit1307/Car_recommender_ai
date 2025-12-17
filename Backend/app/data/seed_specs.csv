@@ -1,0 +1,6 @@
+make,model,year,price,zero_to_sixty,fuel_type,l_per_100km
+Honda,Civic,2018,19000,8.2,ICE,7.35
+Subaru,WRX,2018,24000,5.5,ICE,9.8
+Nissan,Leaf,2019,17000,7.9,EV,
+Toyota,Corolla,2020,19500,8.5,ICE,7.8
+Ford,Escape,2021,26000,7.7,Hybrid,6.5

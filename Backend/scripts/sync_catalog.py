@@ -1,14 +1,15 @@
 """
-Pull a small catalog of cars from public APIs and cache to app/data/cache/vehicles.json.
-Designed to be simple and safe to run; adjust the make/year lists as needed.
+Build a cached vehicle catalog using public APIs (CarQuery, EPA, NHTSA) plus a small
+seed CSV for price/0-60/fuel_type fallbacks. Keeps scope small to avoid hammering
+free APIs; expand MAKES/YEARS as needed.
 """
 
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
+import csv
 import json
 import sys
 
-# Ensure imports work when running as a script (python scripts/sync_catalog.py)
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.append(str(ROOT))
 
@@ -19,16 +20,17 @@ from app.services.nhtsa_issues import get_complaints_and_recalls
 CACHE_FILE = ROOT / "app" / "data" / "cache" / "vehicles.json"
 CACHE_FILE.parent.mkdir(parents=True, exist_ok=True)
 
-# Keep scope small to avoid hammering the free APIs. Expand as needed.
-MAKES = ["Honda", "Subaru", "Nissan"]
-YEARS = [2018, 2019, 2020]
+SEED_FILE = ROOT / "app" / "data" / "seed_specs.csv"
 
-# Temporary lookup for 0-60 times (seconds). Extend or replace with a real source.
-ZERO_TO_SIXTY = {
-    ("Honda", "Civic"): 8.2,
-    ("Subaru", "WRX"): 5.5,
-    ("Nissan", "Leaf"): 7.9,
-}
+# Expand this list as you like. Keep it small to respect free API limits.
+MAKES = ["Honda", "Subaru", "Toyota", "Nissan", "Ford"]
+YEARS = [2018, 2019, 2020, 2021, 2022]
+
+
+def mpg_to_l_per_100km(mpg: Optional[float]) -> Optional[float]:
+    if mpg is None or mpg <= 0:
+        return None
+    return 235.214583 / mpg
 
 
 def parse_price(value: Optional[str]) -> Optional[float]:
@@ -41,7 +43,6 @@ def parse_price(value: Optional[str]) -> Optional[float]:
 
 
 def reliability_score_from_counts(complaints: int, recalls: int) -> float:
-    # Simple inverse: more issues -> lower score. Clamp between 0 and 1.
     total = max(complaints, 0) + max(recalls, 0)
     if total <= 1:
         return 1.0
@@ -50,12 +51,54 @@ def reliability_score_from_counts(complaints: int, recalls: int) -> float:
     return max(0.0, 1.0 - (total / 50.0))
 
 
-def pick_zero_to_sixty(make: str, model: str) -> Optional[float]:
-    return ZERO_TO_SIXTY.get((make, model))
+def load_seed_specs() -> Dict[Tuple[str, str, int], Dict[str, Any]]:
+    if not SEED_FILE.exists():
+        return {}
+    data: Dict[Tuple[str, str, int], Dict[str, Any]] = {}
+    with SEED_FILE.open("r", encoding="utf-8") as f:
+        reader = csv.DictReader(f)
+        for row in reader:
+            try:
+                make = row.get("make") or ""
+                model = row.get("model") or ""
+                year = int(row.get("year", 0))
+                key = (make, model, year)
+                data[key] = {
+                    "price": parse_price(row.get("price")),
+                    "zero_to_sixty": float(row["zero_to_sixty"]) if row.get("zero_to_sixty") else None,
+                    "fuel_type": row.get("fuel_type"),
+                    "l_per_100km": float(row["l_per_100km"]) if row.get("l_per_100km") else None,
+                }
+            except ValueError:
+                continue
+    return data
+
+
+def pick_fuel_type(epa_fuel: Optional[str], trim: Dict[str, Any], seed: Dict[str, Any]) -> Optional[str]:
+    if epa_fuel:
+        return epa_fuel
+    if seed.get("fuel_type"):
+        return seed["fuel_type"]
+    engine_fuel = (trim.get("model_engine_fuel") or "").upper()
+    if engine_fuel:
+        return engine_fuel
+    return None
+
+
+def pick_zero_to_sixty(seed: Dict[str, Any]) -> Optional[float]:
+    return seed.get("zero_to_sixty")
+
+
+def parse_int(value: Any) -> Optional[int]:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def build_catalog() -> List[Dict[str, Any]]:
     catalog: List[Dict[str, Any]] = []
+    seed_specs = load_seed_specs()
 
     for make in MAKES:
         for year in YEARS:
@@ -63,11 +106,12 @@ def build_catalog() -> List[Dict[str, Any]]:
             if not trims:
                 continue
 
-            # Keep it small per make/year to respect rate limits
-            for trim in trims[:5]:
+            for trim in trims[:8]:
                 model = trim.get("model_name")
                 if not model:
                     continue
+
+                seed = seed_specs.get((make, model, year), {})
 
                 epa_options = get_vehicle_options(year, make, model)
                 epa_id = epa_options[0]["id"] if epa_options else None
@@ -79,20 +123,27 @@ def build_catalog() -> List[Dict[str, Any]]:
                     complaints_data.get("recalls_count", 0),
                 ) if isinstance(complaints_data, dict) else 0.5
 
+                mpg = (epa_details or {}).get("mpg_combined")
+                lpk = seed.get("l_per_100km") or mpg_to_l_per_100km(mpg)
+
                 record = {
                     "id": f"{make.lower()}_{model.lower()}_{year}_{len(catalog)}",
                     "make": make,
                     "model": model,
                     "year": year,
-                    "price": parse_price(trim.get("model_price")) or 0,
+                    "price": parse_price(trim.get("model_price")) or seed.get("price") or 0,
                     "drivetrain": (epa_details or {}).get("drive")
                     or trim.get("model_drive")
                     or trim.get("model_drivetrain")
                     or "",
-                    "mpg": (epa_details or {}).get("mpg_combined") or 0,
-                    "zero_to_sixty": pick_zero_to_sixty(make, model),
+                    "fuel_type": pick_fuel_type((epa_details or {}).get("fuel_type"), trim, seed),
+                    "mpg": mpg or 0,
+                    "mpge": (epa_details or {}).get("mpge"),
+                    "l_per_100km": lpk,
+                    "zero_to_sixty": pick_zero_to_sixty(seed),
                     "annual_cost": (epa_details or {}).get("fuel_cost_annual"),
                     "reliability_score": reliability,
+                    "seats": trim.get("model_seats"),
                     "source": {
                         "carquery_trim_id": trim.get("model_id"),
                         "epa_vehicle_id": epa_id,

@@ -3,23 +3,21 @@ from typing import List, Dict, Optional
 
 import requests
 
-fuel_economy_link = "https://api.fueleconomy.gov/ws/rest"
+BASE_URL = "https://api.fueleconomy.gov/ws/rest"
+TIMEOUT = 8
 
 
 def _fetch_xml(path: str, params: Dict) -> Optional[ET.Element]:
     try:
-        resp = requests.get(f"{fuel_economy_link}/{path}", params=params, timeout=5)
+        resp = requests.get(f"{BASE_URL}/{path}", params=params, timeout=TIMEOUT)
         resp.raise_for_status()
         return ET.fromstring(resp.text)
     except (requests.RequestException, ET.ParseError):
         return None
 
 
-def get_vehicle_options(year: int, make: str, model: str) -> List[Dict[str, str]]:
-    """
-    Look up EPA vehicle option IDs for a given make/model/year.
-    Returns a list of {"id": "...", "text": "..."} dictionaries.
-    """
+def get_vehicle_options(year: int, make: str, model: str) -> List[Dict[str, str]]: #get car type
+  
     root = _fetch_xml("vehicle/menu/options", {"year": year, "make": make, "model": model})
     if root is None:
         return []
@@ -33,11 +31,8 @@ def get_vehicle_options(year: int, make: str, model: str) -> List[Dict[str, str]
     return options
 
 
-def get_vehicle_mpg(vehicle_id: str) -> Optional[Dict[str, Optional[float]]]:
-    """
-    Fetch fuel economy and fuel cost info for a specific EPA vehicle ID.
-    Returns None on failure.
-    """
+def get_vehicle_mpg(vehicle_id: str) -> Optional[Dict[str, Optional[float]]]: #get fuel economy 
+
     root = _fetch_xml(f"vehicle/{vehicle_id}", {})
     if root is None:
         return None
@@ -55,7 +50,9 @@ def get_vehicle_mpg(vehicle_id: str) -> Optional[Dict[str, Optional[float]]]:
         "mpg_city": as_float("city08"),
         "mpg_highway": as_float("highway08"),
         "mpg_combined": as_float("comb08"),
+        "mpge": as_float("combE"),
         "fuel_cost_annual": as_float("fuelCost08"),
         "drive": root.findtext("drive"),
         "transmission": root.findtext("trany"),
+        "fuel_type": root.findtext("fuelType1"),
     }
