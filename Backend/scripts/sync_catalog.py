@@ -75,13 +75,22 @@ def load_seed_specs() -> Dict[Tuple[str, str, int], Dict[str, Any]]:
 
 
 def pick_fuel_type(epa_fuel: Optional[str], trim: Dict[str, Any], seed: Dict[str, Any]) -> Optional[str]:
-    if epa_fuel:
-        return epa_fuel
-    if seed.get("fuel_type"):
-        return seed["fuel_type"]
-    engine_fuel = (trim.get("model_engine_fuel") or "").upper()
-    if engine_fuel:
-        return engine_fuel
+    def normalize(raw: Optional[str]) -> Optional[str]:
+        if not raw:
+            return None
+        val = raw.lower()
+        if "electric" in val:
+            return "EV"
+        if "hybrid" in val:
+            return "Hybrid"
+        if "gas" in val or "petrol" in val or "diesel" in val:
+            return "ICE"
+        return raw
+
+    for candidate in (epa_fuel, seed.get("fuel_type"), trim.get("model_engine_fuel")):
+        norm = normalize(candidate)
+        if norm:
+            return norm
     return None
 
 
@@ -143,7 +152,7 @@ def build_catalog() -> List[Dict[str, Any]]:
                     "zero_to_sixty": pick_zero_to_sixty(seed),
                     "annual_cost": (epa_details or {}).get("fuel_cost_annual"),
                     "reliability_score": reliability,
-                    "seats": trim.get("model_seats"),
+                    "seats": parse_int(trim.get("model_seats")),
                     "source": {
                         "carquery_trim_id": trim.get("model_id"),
                         "epa_vehicle_id": epa_id,
