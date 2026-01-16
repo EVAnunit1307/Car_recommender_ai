@@ -102,6 +102,11 @@ button:hover {
   color: var(--muted);
 }
 
+.safety-info {
+  color: #ffb84d;
+  font-size: 0.85rem;
+}
+
 .metrics {
   margin-top: 8px;
   font-size: 0.9rem;

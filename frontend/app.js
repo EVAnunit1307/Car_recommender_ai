@@ -2,36 +2,40 @@ const API_BASE = "http://127.0.0.1:8000";
 
 const presets = {
   balanced: {
-    winter_driving: 0.2,
-    fuel_efficiency: 0.2,
-    price_fit: 0.2,
-    ownership_cost: 0.2,
-    acceleration: 0.1,
-    reliability: 0.1,
+    winter_driving: 0.15,
+    fuel_efficiency: 0.15,
+    price_fit: 0.20,
+    ownership_cost: 0.15,
+    acceleration: 0.10,
+    reliability: 0.15,
+    safety: 0.10,
   },
   budget: {
-    winter_driving: 0.15,
-    fuel_efficiency: 0.3,
-    price_fit: 0.3,
-    ownership_cost: 0.2,
+    winter_driving: 0.10,
+    fuel_efficiency: 0.25,
+    price_fit: 0.35,
+    ownership_cost: 0.20,
     acceleration: 0.05,
-    reliability: 0.0,
+    reliability: 0.05,
+    safety: 0.00,
   },
   winter: {
     winter_driving: 0.35,
-    fuel_efficiency: 0.2,
-    price_fit: 0.2,
-    ownership_cost: 0.1,
+    fuel_efficiency: 0.15,
+    price_fit: 0.15,
+    ownership_cost: 0.10,
     acceleration: 0.05,
-    reliability: 0.1,
+    reliability: 0.10,
+    safety: 0.10,
   },
   performance: {
-    winter_driving: 0.1,
-    fuel_efficiency: 0.1,
-    price_fit: 0.15,
-    ownership_cost: 0.1,
+    winter_driving: 0.10,
+    fuel_efficiency: 0.10,
+    price_fit: 0.10,
+    ownership_cost: 0.10,
     acceleration: 0.35,
-    reliability: 0.2,
+    reliability: 0.15,
+    safety: 0.10,
   },
 };
 
@@ -87,6 +91,10 @@ function renderResults(data) {
 
   resultsEl.innerHTML = results
     .map((car) => {
+      const safetyInfo = car.complaints_count !== undefined && car.recalls_count !== undefined
+        ? `<span class="label safety-info">⚠️ ${car.complaints_count} complaints, ${car.recalls_count} recalls</span>`
+        : '';
+      
       return `
         <div class="card">
           <div class="row">
@@ -98,6 +106,7 @@ function renderResults(data) {
             <span class="label">Fuel: ${car.fuel_type || "n/a"}</span>
             <span class="label">0-60: ${car.zero_to_sixty || "n/a"}s</span>
           </div>
+          ${safetyInfo ? `<div class="row">${safetyInfo}</div>` : ''}
           <div class="metrics">
             <span>Winter: ${car.winter_points}</span>
             <span>Fuel: ${car.fuel_points}</span>
@@ -105,6 +114,7 @@ function renderResults(data) {
             <span>Ownership: ${car.ownership_cost_points}</span>
             <span>Accel: ${car.acceleration_points}</span>
             <span>Reliability: ${car.reliability_points}</span>
+            <span>Safety: ${car.safety_points || 0}</span>
           </div>
         </div>
       `;
