@@ -90,13 +90,28 @@ def _read_cache() -> Tuple[List[Dict[str, Any]], bool, Optional[str]]:
 def load_cars() -> List[Dict[str, Any]]:
     """
     Load cars from the cached catalog file if present; otherwise fall back to MOCK_CARS.
+    Ensures all cars have safety_score field (defaults to 0.5 if missing).
     """
     data, _, _ = _read_cache()
+    
+    # Ensure all cars have safety_score
+    for car in data:
+        if "safety_score" not in car:
+            car["safety_score"] = 0.5  # Default neutral safety score
+    
     return data
 
 
 def load_cars_with_meta() -> Tuple[List[Dict[str, Any]], bool, Optional[str]]:
     """
     Return cars, a flag indicating if mock data was used, and last_updated timestamp.
+    Ensures all cars have safety_score field (defaults to 0.5 if missing).
     """
-    return _read_cache()
+    data, using_mock, last_updated = _read_cache()
+    
+    # Ensure all cars have safety_score
+    for car in data:
+        if "safety_score" not in car:
+            car["safety_score"] = 0.5  # Default neutral safety score
+    
+    return data, using_mock, last_updated
