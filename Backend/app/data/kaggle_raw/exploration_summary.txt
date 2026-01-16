@@ -1,0 +1,37 @@
+======================================================================
+KAGGLE DATASET EXPLORATION SUMMARY
+======================================================================
+
+Dataset: abdulmalik1518/cars-datasets-2025
+Location: C:\Users\aclie\Documents\Side Projects\Car_recommender_ai\backend\app\data\kaggle_raw
+File: Cars Datasets 2025.csv
+
+Shape: 1,218 rows x 11 columns
+
+Columns:
+----------------------------------------------------------------------
+ 1. Company Names                  (object)
+ 2. Cars Names                     (object)
+ 3. Engines                        (object)
+ 4. CC/Battery Capacity            (object)
+ 5. HorsePower                     (object)
+ 6. Total Speed                    (object)
+ 7. Performance(0 - 100 )KM/H      (object)
+ 8. Cars Prices                    (object)
+ 9. Fuel Types                     (object)
+10. Seats                          (object)
+11. Torque                         (object)
+
+Missing Values:
+----------------------------------------------------------------------
+                           Missing Count  Percentage
+Performance(0 - 100 )KM/H              6    0.492611
+CC/Battery Capacity                    3    0.246305
+Torque                                 1    0.082102
+
+Duplicates: 4
+
+
+Key Columns:
+----------------------------------------------------------------------
+Cars Prices: 535 unique values

@@ -1,0 +1,101 @@
+Company Names,Cars Names,Engines,CC/Battery Capacity,HorsePower,Total Speed,Performance(0 - 100 )KM/H,Cars Prices,Fuel Types,Seats,Torque
+FERRARI,SF90 STRADALE,V8,3990 cc,963 hp,340 km/h,2.5 sec,"$1,100,000 ",plug in hyrbrid,2,800 Nm
+ROLLS ROYCE,PHANTOM,V12,6749 cc,563 hp,250 km/h,5.3 sec,"$460,000 ",Petrol,5,900 Nm
+Ford,KA+,1.2L Petrol,"1,200 cc",70-85 hp,165 km/h,10.5 sec,"$12,000-$15,000",Petrol,5,100 - 140 Nm
+MERCEDES, GT 63 S,V8,"3,982 cc",630 hp,250 km/h,3.2 sec,"$161,000 ",Petrol,4,900 Nm
+AUDI,AUDI R8 Gt,V10,"5,204 cc",602 hp,320 km/h,3.6 sec,"$253,290 ",Petrol,2,560 Nm
+BMW,Mclaren 720s,V8,"3,994 cc",710 hp,341 km/h,2.9 sec,"$499,000 ",Petrol,2,770 Nm
+ASTON MARTIN,VANTAGE F1,V8,"3,982 cc",656 hp,314 km/h,3.6 sec,"$193,440 ",Petrol,2,685 Nm
+BENTLEY,Continental GT Azure,V8,"3,996 cc",550 hp,318 km/h,4.0 sec,"$311,000 ",Petrol,4,900 Nm
+LAMBORGHINI,VENENO ROADSTER,V12,"6,498 cc",750 hp,356 km/h,2.9 sec,"$4,500,000 ",Petrol,2,690 Nm
+FERRARI,F8 TRIBUTO,V8,"3,900 cc",710 hp,340 km/h,2.9 sec,"$280,000 ",Petrol,2,770 Nm
+FERRARI,812 GTS,V12,6496 cc,789 hp,340 km/h,2.9 sec,"$350,000 ",Petrol,2,718 Nm
+FERRARI,PORTOFINO,V8,"3,900 cc",592 hp,320 km/h,3.2 sec,"$210,000 ",Petrol,2+2,760 Nm
+FERRARI,ROMA,V8,"3,900 cc",612 hp,320 km/h,3.4 sec,"$230,000 ",Petrol,2+2,760 Nm
+FERRARI,MONZA SP2,V12,"6,496 cc",789 hp,340 km/h,2.9 sec,"$1,700,000 ",Petrol,2,719 Nm
+FERRARI,F8 SPIDER,V8,"3,900 cc",710 hp,340 km/h,2.9 sec,"$280,000 ",Petrol,2,770 Nm
+FERRARI,PORTOFINO M,V8,"3,900 cc",612 hp,320 km/h,3.2 sec,"$220,000 ",Petrol,2+2,760 Nm
+FERRARI,ROMA SPIDER,V8,"3,900 cc",612 hp,320 km/h,3.4 sec,"$240,000 ",Petrol,2+2,760 Nm
+TOYOTA,GR SUPRA,I4,"2,998 cc",382 hp,250 km/h,4.1 sec,"$53,900 ",Petrol,2,500 Nm
+TOYOTA,TOYOTA 86,BOXER-4,"1,998 cc",205 hp,226 km/h,6.4 sec,"$27,000 ",Petrol,2+2,205 Nm
+TOYOTA,TOYOTA  GR86,BOXER-4,"2,387 cc",228 hp,226 km/h,5.6 sec,"$30,000 ",Petrol,4,250 Nm
+TOYOTA,TOYOTA LAND CRUISER,V8,"5,663 cc",381 hp,220 km/h,6.7 sec,"$85,000 ",Diesel,7,500 Nm
+TOYOTA,TOYOTA SEQUOIA,V8,"5,663 cc",381 hp,200 km/h,6.9 sec,"$50,000 ",Petrol,7,651 Nm
+NISSAN,GT-R,V6,"3,799 cc",600 hp,315 km/h,2.9 sec,"$113,000 ",Petrol,4,637 Nm
+NISSAN,370Z,V6,"3,696 cc",332 hp,250 km/h,4.7 sec,"$30,000 ",Petrol,2,366 Nm
+NISSAN,Z PROTO,V6,"2,998 cc",400 hp,290 km/h,4.1 sec,"$40,000 ",Petrol,2,475 Nm
+NISSAN,ALTIMA,I4,"2,488 cc",188 hp,225 km/h,7.3 sec,"$25,000 ",Petrol,5,380 Nm
+NISSAN,MAXIMA,V6,"3,498 cc",300 hp,240 km/h,5.8 sec,"$35,000 ",Petrol,5,354 Nm
+NISSAN,SENTRA,I4,"1,998 cc",149 hp,200 km/h,8.2 sec,"$20,000 ",Petrol,5,240 Nm
+NISSAN,ROGUE,I4,"2,488 cc",201 hp,200 km/h,7.5 sec,"$28,000 ",Petrol,5,270 Nm
+NISSAN,PATHFINDER,V6,"3,498 cc",284 hp,225 km/h,6.5 sec,"$35,000 ",Petrol,7,351 Nm
+NISSAN,FRONTIER,V6,"3,799 cc",310 hp,180 km/h,6.8 sec,"$30,000 ",Petrol,5,381 Nm
+NISSAN,TITAN,V8,"5,598 cc",400 hp,200 km/h,5.9 sec,"$40,000 ",Petrol,5,560 Nm
+ASTON MARTIN,VALKYRIE,V12,"6,496 cc",1160 hp,402 km/h,2.5 sec,"$3,200,000 ",Hybrid,2,900 Nm
+ASTON MARTIN,VALHALLA,V8,"3,996 cc",1000 hp,362 km/h,2.5 sec,"$1,100,000 ",Hybrid,2,1000 Nm
+ASTON MARTIN,DBS SUPERLEGGERA,V12,"5,204 cc",715 hp,340 km/h,3.4 sec,"$316,000 ",Petrol,2,900 Nm
+ASTON MARTIN,DB11,V12,"5,204 cc",600 hp,322 km/h,3.9 sec,"$208,000 ",Petrol,4,700 Nm
+ASTON MARTIN,VANTAGE ,V8,"3,996 cc",503 hp,313 km/h,3.6 sec,"$142,000 ",Petrol,2,685 Nm
+ASTON MARTIN,DBX,V8,"3,996 cc",542 hp,291 km/h,4.5 sec,"$189,000 ",Petrol,5,700 Nm
+ASTON MARTIN,RAPIDE AMR,V12,"5,935 cc",580 hp,328 km/h,4.2 sec,"$240,000 ",Petrol,4,630 Nm
+ASTON MARTIN,VANQUISH,V12,"5,935 cc",580 hp,324 km/h,3.6 sec,"$294,000 ",Petrol,2,630 Nm
+ASTON MARTIN,LAGONDA TARAF,V12,"5,935 cc",540 hp,314 km/h,4.2 sec,"$1,100,000 ",Petrol,4,630 Nm
+ASTON MARTIN,VICTOR,V12,"5,204 cc",836 hp,320 km/h,2.8 sec,"$1,300,000 ",Petrol,2,821 Nm
+LAMBORGHINI,SIAN,V12,"6,498 cc",819 hp,350 km/h,2.8 sec,"$2,800,000 ",Hybrid,2,720 Nm
+LAMBORGHINI,AVENTADOR SVJ,V12,"6,498 cc",759 hp,350 km/h,2.8 sec,"$518,000 ",Petrol,2,720 Nm
+LAMBORGHINI,HURACAN PERFORMANTE,V10,"5,204 cc",640 hp,325 km/h,2.9 sec,"$274,000 ",Petrol,2,600 Nm
+LAMBORGHINI,HURACAN EVO,V10,"5,204 cc",640 hp,325 km/h,2.9 sec,"$261,000 ",Petrol,2,600 Nm
+LAMBORGHINI,AVENTADOR SV,V12,"6,498 cc",740 hp,350 km/h,2.8 sec,"$493,000 ",Petrol,2,690 Nm
+LAMBORGHINI,URUS ,V8,"3,996 cc",641 hp,305 km/h,3.6 sec,"$211,000 ",Petrol,5,850 Nm
+LAMBORGHINI,HURACAN SPYDER,V10,"5,204 cc",610 hp,325 km/h,3.4 sec,"$287,000 ",Petrol,2,600 Nm
+LAMBORGHINI,AVENTADOR ROADSTER,V12,"6,498 cc",700 hp,350 km/h,3.0 sec,"$445,000 ",Petrol,2,690 Nm
+LAMBORGHINI,HURACAN  PERFORMANTE SPYDER,V10,"5,204 cc",640 hp,325 km/h,3.1 sec,"$308,000 ",Petrol,2,600 Nm
+LAMBORGHINI,AVENTADOR S,V12,"6,498 cc",740 hp,350 km/h,2.9 sec,"$421,000 ",Petrol,2,690 Nm
+LAMBORGHINI,HURACAN EVO SPYDER,V10,"5,204 cc",640 hp,325 km/h,3.1 sec,"$287,000 ",Petrol,2,600 Nm
+LAMBORGHINI,URUS PERFORMANTE,V8,"3,996 cc",641 hp,305 km/h,3.3 sec,"$242,000 ",Petrol,5,850 Nm
+LAMBORGHINI,AVENTADOR ULTIMAE,V12,"6,498 cc",769 hp,355 km/h,2.8 sec,"$545,000 ",Petrol,2,720 Nm
+LAMBORGHINI,HURACAN EVO RWD,V10,"5,204 cc",610 hp,325 km/h,3.3 sec,"$258,000 ",Petrol,2,560 Nm
+LAMBORGHINI,AVENTADOR SVJ ROADSTER,V12,"6,498 cc",759 hp,350 km/h,2.9 sec,"$573,000 ",Petrol,2,720 Nm
+LAMBORGHINI,URUS S,V8,"3,996 cc",671 hp,305 km/h,3.3 sec,"$263,000 ",Petrol,5,850 Nm
+LAMBORGHINI,HURACAN STO,V10,"5,204 cc",640 hp,325 km/h,3.0 sec,"$327,000 ",Petrol,2,565 Nm
+LAMBORGHINI,AVENTADOR LP 780-4 ULTIMATE,V12,"6,498 cc",769 hp,355 km/h,2.8 sec,"$545,000 ",Petrol,2,720 Nm
+LAMBORGHINI,HURACAN EVO RWD SPYDER,V10,"5,204 cc",610 hp,325 km/h,3.3 sec,"$273,000 ",Petrol,2,600 Nm
+LAMBORGHINI,AVENTADOR SVJ XAGO,V12,"6,498 cc",759 hp,350 km/h,2.9 sec,"$603,000 ",Petrol,2,720 Nm
+LAMBORGHINI,URUS GRAPHITE CAPSULE,V8,"3,998 cc",641 hp,305 km/h,3.3 sec,"$253,000 ",Petrol,5,850 Nm
+LAMBORGHINI,HURACAN STO EVO,V10,"5,204 cc",640 hp,325 km/h,3.0 sec,"$342,000 ",Petrol,2,565 Nm
+LAMBORGHINI,AVENTADOR LP 780-4 ULTIMATE ROADSTER,V12,"6,498 cc",769 hp,355 km/h,2.8 sec,"$573,000 ",Petrol,2,720 Nm
+ROLLS ROYCE ,GHOST,V12,"6,592 cc",591 hp,250 km/h,4.8 sec,"$332,000 ",Petrol,5,850 Nm
+ROLLS ROYCE,WRAITH,V12,"6,592 cc",624 hp,250 km/h,4.4 sec,"$330,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,DAWN,V12,"6,592 cc",624 hp,250 km/h,4.9 sec,"$360,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,CULLINAN,V12,"6,749 cc",563 hp,250 km/h,5.2 sec,"$325,000 ",Petrol,5,850 Nm
+ROLLS ROYCE,PHANTOM EXTENDED,V12,"6,749 cc",563 hp,250 km/h,5.3 sec,"$500,000 ",Petrol,5,900 Nm
+ROLLS ROYCE,GHOST EXTENDED,V12,"6,592 cc",591 hp,250 km/h,4.8 sec,"$370,000 ",Petrol,5,850 Nm
+ROLLS ROYCE,WRAITH BLACK BADGE,V12,"6,592 cc",624 hp,250 km/h,4.3 sec,"$360,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,DAWN BLACK BADGE,V12,"6,592 cc",624 hp,250 km/h,4.8 sec,"$390,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,CULLINAN BLACK BADGE,V12,"6,749 cc",563 hp,250 km/h,5.1 sec,"$350,000 ",Petrol,5,850 Nm
+ROLLS ROYCE,PHANTOM COUPE,V12,"6,749 cc",563 hp,250 km/h,5.3 sec,"$450,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,GHOST COUPE,V12,"6,592 cc",591 hp,250 km/h,4.8 sec,"$340,000 ",Petrol,4,850 Nm
+ROLLS ROYCE,WRAITH COUPE,V12,"6,592 cc",624 hp,250 km/h,4.4 sec,"$330,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,DAWN CONVERTIBLE,V12,"6,592 cc",624 hp,250 km/h,4.9 sec,"$380,000 ",Petrol,4,870 Nm
+ROLLS ROYCE,CULLINAN SUV,V12,"6,749 cc",563 hp,250 km/h,5.2 sec,"$320,000 ",Petrol,5,850 Nm
+MERCEDES,BENZ S-CLASS S 580,V8,"3,982 cc",496 hp,250 km/h,4.4 sec,"$116,000 ",Petrol,5,700 Nm
+MERCEDES,BENZ E-CLASS E 63 S,V8,"3,982 cc",603 hp,250 km/h,3.4 sec,"$104,000 ",Petrol,5,850 Nm
+MERCEDES,BENZ CLA 45 AMG,I4,1991 cc,382 hp,250 km/h,4.1 sec,"$53,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ GLE 63 S,V8,"3,982 cc",603 hp,250 km/h,4.2 sec,"$113,000 ",Petrol,5,850 Nm
+MERCEDES,BENZ S-CLASS S 500,V6,"2,996 cc",429 hp,250 km/h,4.9 sec,"$109,000 ",Petrol,5,700 Nm
+MERCEDES,BENZ E-CLASS E 450 ,V6,"2,996 cc",362 hp,250 km/h,5.2 sec,"$62,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ CLS 450,V6,"2,996 cc",362 hp,250 km/h,5.2 sec,"$70,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ GT 53,V6,"2,996 cc",429 hp,250 km/h,4.5 sec,"$99,000 ",Petrol,5,700 Nm
+MERCEDES,BENZ GLE 450,V6,"2,996 cc",362 hp,250 km/h,5.5 sec,"$63,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ A-CLASS A 45 S,I4,"1,991 cc",416 hp,250 km/h,3.9 sec,"$53,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ C-CLASS C 43,V6,"2,996 cc",402 hp,250 km/h,4.7 sec,"$52,000 ",Petrol,5,520 Nm
+MERCEDES,BENZ E-CLASS E 350,I4,"1,991 cc",255 hp,250 km/h,5.7 sec,"$49,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ GLE 350 ,I4,"1,991 cc",255 hp,250 km/h, 6.1 sec,"$53,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ GLC 43,V6,"2,996 cc",402 hp,250 km/h,4.7 sec,"$54,000 ",Petrol,5,520 Nm
+MERCEDES,BENZ GLA 45,I4,"1,991 cc",382 hp,250 km/h,4.3 sec,"$48,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ GLC 350 ,I4,"1,991 cc",255 hp,250 km/h,6.1 sec,"$46,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ GLE 53,V6,"2,996 cc",429 hp,250 km/h,5.2 sec,"$71,000 ",Petrol,5,620 Nm
+MERCEDES,BENZ S-CLASS S 350,I4,"1,991 cc",255 hp,250 km/h,6.5 sec,"$90,000 ",Petrol,5,500 Nm
+MERCEDES,BENZ EQS 53,ELECTRIC MOTOR,,751 hp,250 km/h,3.4 sec,"$102,000 ",Electric,5,950 Nm
+MERCEDES,BENZ MAYBACH S 680,V12,"5,980 cc",630 hp,250 km/h,4.7 sec,"$200,000 ",Petrol,5,1000 Nm
+BMW,M5 CS,V8,"4,395 cc",627 hp,305 km/h,3.0 sec,"$142,000 ",Petrol,5,750 Nm
