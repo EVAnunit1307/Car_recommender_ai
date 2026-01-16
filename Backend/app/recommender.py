@@ -119,3 +119,18 @@ def reliability_feature(score: Optional[float]) -> float:
 
 def reliability_score(raw_score: Optional[float], weight: float) -> float:
     return reliability_feature(raw_score) * weight
+
+
+# Safety score (based on NHTSA recalls and safety ratings)
+
+def safety_feature(score: Optional[float]) -> float:
+    """
+    Normalize safety score (expects 0..1 from NHTSA data).
+    """
+    if score is None:
+        return 0.5  # Neutral default if no data
+    return clamp(score)
+
+
+def safety_score(raw_score: Optional[float], weight: float) -> float:
+    return safety_feature(raw_score) * weight
