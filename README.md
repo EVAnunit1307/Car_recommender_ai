@@ -78,9 +78,9 @@ Retrieve chat history for a session.
 ### `POST /chat/reset/{session_id}`
 Clear chat history for a session.
 
-## LangChain setup
-Set `OPENAI_API_KEY` in your environment before calling chat endpoints. You can
-optionally set `OPENAI_MODEL` (defaults to `gpt-4o-mini`).
+## LangChain setup (Gemini)
+Set `GOOGLE_API_KEY` in your environment before calling chat endpoints. You can
+optionally set `GEMINI_MODEL` (defaults to `gemini-1.5-flash`).
 
 ## Data sync (optional)
 The backend uses a cached catalog if present; otherwise it falls back to a small
