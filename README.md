@@ -15,7 +15,7 @@ cost, acceleration, and reliability, then returns the top matches.
 ## Stack
 - Backend: Python, FastAPI, Pydantic
 - Frontend: Vanilla HTML/CSS/JS
-- Data sources: CarQuery API, EPA FuelEconomy API, NHTSA Complaints/Recalls
+- Data sources: CarQuery API, EPA FuelEconomy API, NHTSA Complaints/Recalls, Kaggle Cars Datasets 2025
 
 ## Quick start
 
@@ -69,9 +69,38 @@ Returns complaint and recall counts from NHTSA.
 ### `GET /`
 Health + catalog metadata.
 
+### `POST /chat/message`
+Send a message to the LangChain-powered assistant.
+
+### `GET /chat/history/{session_id}`
+Retrieve chat history for a session.
+
+### `POST /chat/reset/{session_id}`
+Clear chat history for a session.
+
+## LangChain setup
+Set `OPENAI_API_KEY` in your environment before calling chat endpoints. You can
+optionally set `OPENAI_MODEL` (defaults to `gpt-4o-mini`).
+
 ## Data sync (optional)
 The backend uses a cached catalog if present; otherwise it falls back to a small
 mock dataset in `backend/app/data/catalog.py`.
+
+### Building the catalog from the Kaggle dataset
+This project can also build the catalog from the Kaggle Cars Datasets 2025 release.
+
+1) Configure Kaggle credentials (required for downloads):
+   - Create an API token from https://www.kaggle.com/account
+   - Save `kaggle.json` to `~/.kaggle/kaggle.json` (Windows: `C:\Users\<You>\.kaggle\kaggle.json`)
+
+2) Run the sync script:
+```powershell
+cd backend
+python scripts\sync_kaggle_catalog.py
+```
+
+This writes `backend/app/data/cache/kaggle_vehicles.json`, which is automatically
+preferred over other cached catalogs when present.
 
 ### Building the catalog from public APIs
 To build a cached catalog using public APIs:
