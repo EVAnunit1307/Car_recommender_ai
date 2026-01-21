@@ -42,6 +42,7 @@ const presets = {
 const form = document.getElementById("recommend-form");
 const statusEl = document.getElementById("status");
 const resultsEl = document.getElementById("results");
+const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -91,9 +92,11 @@ function renderResults(data) {
 
   resultsEl.innerHTML = results
     .map((car) => {
-      const safetyInfo = car.complaints_count !== undefined && car.recalls_count !== undefined
-        ? `<span class="label safety-info">⚠️ ${car.complaints_count} complaints, ${car.recalls_count} recalls</span>`
-        : '';
+      const safetyInfo =
+        car.complaints_count !== undefined && car.recalls_count !== undefined
+          ? `<span class="label">Safety: ${car.complaints_count} complaints, ${car.recalls_count} recalls</span>`
+          : "";
+      const priceLabel = car.price ? currency.format(car.price) : "n/a";
       
       return `
         <div class="card">
@@ -102,11 +105,11 @@ function renderResults(data) {
             <div class="label">Score: ${car.total_score}</div>
           </div>
           <div class="row">
-            <span class="label">Price: $${car.price}</span>
+            <span class="label">Price: ${priceLabel}</span>
             <span class="label">Fuel: ${car.fuel_type || "n/a"}</span>
             <span class="label">0-60: ${car.zero_to_sixty || "n/a"}s</span>
           </div>
-          ${safetyInfo ? `<div class="row">${safetyInfo}</div>` : ''}
+          ${safetyInfo ? `<div class="row">${safetyInfo}</div>` : ""}
           <div class="metrics">
             <span>Winter: ${car.winter_points}</span>
             <span>Fuel: ${car.fuel_points}</span>

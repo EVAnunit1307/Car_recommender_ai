@@ -4,12 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Car Recommender</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <main class="page">
-    <section class="panel">
-      <h1>Car Recommender</h1>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Car Recommender AI</p>
+        <h1>Find the right car with confidence.</h1>
+        <p class="subhead">
+          Tuned scoring across price, safety, and performance for clean, fast recommendations.
+        </p>
+      </div>
+      <div class="hero-card">
+        <div class="hero-metric">
+          <span class="metric-label">Catalog</span>
+          <span class="metric-value">Live + cached</span>
+        </div>
+        <div class="hero-metric">
+          <span class="metric-label">Signals</span>
+          <span class="metric-value">Pricing, fuel, safety</span>
+        </div>
+        <div class="hero-metric">
+          <span class="metric-label">Mode</span>
+          <span class="metric-value">Black ops theme</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="panel form-panel">
       <form id="recommend-form">
         <div class="field">
           <label>Budget (USD)</label>
@@ -50,8 +79,11 @@
       </form>
     </section>
 
-    <section class="panel">
-      <h2>Results</h2>
+    <section class="panel results-panel">
+      <div class="results-header">
+        <h2>Results</h2>
+        <span class="results-hint">Top 5 matches by weighted score</span>
+      </div>
       <div id="results"></div>
     </section>
   </main>
