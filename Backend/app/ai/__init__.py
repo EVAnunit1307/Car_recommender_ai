@@ -1,1 +1,1 @@
-"""LangChain-powered AI helpers."""
+"""LangChain helpers for conversational features."""
