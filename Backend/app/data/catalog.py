@@ -69,21 +69,24 @@ MOCK_CARS: List[Dict[str, Any]] = [
 
 DATA_DIR = Path(__file__).resolve().parent
 CACHE_FILE = DATA_DIR / "cache" / "vehicles.json"
+KAGGLE_CACHE_FILE = DATA_DIR / "cache" / "kaggle_vehicles.json"
+CACHE_FILES = (KAGGLE_CACHE_FILE, CACHE_FILE)
 
 
 def _read_cache() -> Tuple[List[Dict[str, Any]], bool, Optional[str]]:
     """
     Return data, using_mock flag, and last_updated timestamp (ISO) if cache exists.
     """
-    if CACHE_FILE.exists():
-        try:
-            with CACHE_FILE.open("r", encoding="utf-8") as f:
-                data = json.load(f)
-            if isinstance(data, list) and data:
-                ts = datetime.fromtimestamp(CACHE_FILE.stat().st_mtime).isoformat()
-                return data, False, ts
-        except (OSError, json.JSONDecodeError):
-            pass
+    for cache_file in CACHE_FILES:
+        if cache_file.exists():
+            try:
+                with cache_file.open("r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, list) and data:
+                    ts = datetime.fromtimestamp(cache_file.stat().st_mtime).isoformat()
+                    return data, False, ts
+            except (OSError, json.JSONDecodeError):
+                continue
     return MOCK_CARS, True, None
 
 
